@@ -4,6 +4,24 @@ from .models import *
 from .serializers import *
 from .permissions import IsAdminOrReadOnly
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+
+#profileview
+
+class ProfileView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        return Response({
+            "username": user.username,
+            "is_superuser": user.is_superuser,
+            "is_staff": user.is_staff
+        })
+
+
 
 
 # LEARNING
